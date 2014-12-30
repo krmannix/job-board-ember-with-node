@@ -1,4 +1,5 @@
 job-board-ember-with-node
 =========================
 
-Translating the front-end code into a node project. Keeping them separate until I know this works.
+This project is an evolution from the Ember front-end created here: https://github.com/krmannix/job-board-ember-front-end
+Without disrupting the layout of the ember front end (in case this project might be replicated in other backend libraries or frameworks such as Python's Flask), a new repo was created to support the addition of a node.js back-end.
