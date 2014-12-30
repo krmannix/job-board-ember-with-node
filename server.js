@@ -17,7 +17,13 @@ var db = mongoose.connection;
 
 db.on('error', console.error);
 db.on('open', function() {
+	var jobpostSchema = new mongoose.Schema({
 
+	});
 });
 
 mongoose.connect(configDB.dbLocation);
+
+app.get('/', function(request, response) {
+	response.render('index.html');
+});

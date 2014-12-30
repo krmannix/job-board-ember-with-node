@@ -6,3 +6,6 @@ Without disrupting the layout of the ember front end (in case this project might
 
 This tutorial is the initial starting point: 
 http://www.webdesignermag.co.uk/tutorials/build-a-reminder-app-with-node-js-and-ember-js-part-1/
+
+Looking at this project set-up:
+https://github.com/mark-watson/emberjs-nodejs
