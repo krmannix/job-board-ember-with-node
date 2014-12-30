@@ -1,0 +1,130 @@
+$margin-side: 10%;
+$input-width: 300px;
+
+#danger-type {
+	padding: 2px;
+	margin-top: 4px;
+}
+
+#danger-school {
+	padding: 2px;
+	margin-top: 4px;
+}
+
+#danger-fields {
+	width: 80%;
+	margin-left: 10%;
+}
+
+.clicked-type {
+	background-color: blue;
+}
+
+.submit-job-group {
+
+		.submit-job-title {
+			text-align: center;
+		}
+		.submission-field {
+			display: block;
+
+			.form-control{
+			  -webkit-border-radius: 8px;
+			     -moz-border-radius: 8px;
+			          border-radius: 8px;
+			}
+			.input-group {
+				width: $input-width;
+				margin-bottom: 5px;
+				margin-right: $margin-side;
+				margin-left: $margin-side;
+				textarea {
+					overflow: scroll;
+					resize: none;
+				}
+			}
+			.btn-group {
+				margin-bottom: 15px;
+				margin-right: $margin-side;
+				margin-left: $margin-side;
+			}
+			.button-grid {
+				width: 80%;
+				.type-group {
+					text-align: center;
+					min-width: 45%;
+					.btn-group {
+						margin-top: 20%;
+						padding: 0;
+						margin: 0;
+						button {
+							margin: 0;
+						}
+					}
+				}
+				.box2 {
+					min-width: 10%;
+				}
+				.school-group {
+					font-size: 1em;
+					text-align: center;
+					min-width: 45%;
+					label {
+						display: block;
+					}
+				}
+			}
+			.prereq-submit-job {
+				width: 80%;
+				margin-right: $margin-side;
+				margin-left: $margin-side;
+				.list-group {
+					list-style-type: none;
+				}
+				button {
+					display: inline-block;
+					width: 8%;
+					margin-top: 1px;
+				}
+				.button-remove {
+					border-radius: 0;
+				}
+				.button-plus {
+					border-bottom-left-radius: 0px;
+					border-top-left-radius: 0px;
+				}
+				input {
+					margin-top: 1px;
+					border-bottom-right-radius: 0px;
+					border-top-right-radius: 0px;
+					width: 60%;
+					display: inline-block;
+				}
+				.input-group {
+					width: 80%;
+				}
+			}
+		}
+
+		.btn-login {
+			background-color: $bu-primary;
+			color: $bu-secondary;
+			margin-left: 45%;
+			width: 10%;
+		}
+
+		.flex-box-model {
+		    /* flexbox setup */
+		    display: -webkit-flex;
+		    -webkit-flex-direction: row;
+
+		    display: flex;
+		    flex-direction: row;
+
+		    > div {
+				-webkit-flex: 1 1 auto;
+			    flex: 1 1 auto;
+			}
+		}
+
+}
