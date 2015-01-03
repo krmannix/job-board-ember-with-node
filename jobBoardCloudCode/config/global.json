@@ -1,0 +1,11 @@
+{
+    "applications": {
+        "YourProjectName": {
+            "applicationId": "yourParseApplicationKeyGoesHere", 
+            "masterKey": "yourParseMasterKeyGoesHere"
+        }, 
+        "_default": {
+            "link": "YourProjectName"
+        }
+    }
+}
