@@ -1,10 +1,3 @@
-
-// Use Parse.Cloud.define to define as many cloud functions as you want.
-// For example:
-Parse.Cloud.define("hello", function(request, response) {
-  response.success("Hello world!");
-});
-
 // Checking for preexisting posts that are similar
 Parse.Cloud.beforeSave("JobPost", function(request, response) {
 	var jobPost = request.object;
@@ -32,16 +25,21 @@ Parse.Cloud.beforeSave(Parse.User, function(request, response) {
 	var user = request.object;
 	var favs = user.get("favorite_posts");
 	if (favs) {
+		console.log("Has saves");
 		if (favs.length > 20) {
 			response.error("Too many saved posts!");
 		} else {
 			response.success();
 		}
 	} else {
+		// Make sure they have the favorite posts array, or else errors will occur when trying to access it
+		console.log("No saves");
+		request.object.set("favorite_posts", []);
 		response.success();
 	}
 });
 
+// Takes a user and grabs all the saved jobs in a query
 Parse.Cloud.define("getSavedJobs", function(request, response) {
 	var user = request.user;
 	var favs = user.get('favorite_posts');
@@ -57,16 +55,18 @@ Parse.Cloud.define("getSavedJobs", function(request, response) {
 	});
 });
 
+// Adds a job onto the user's favorite_posts array
 Parse.Cloud.define("addSavedJob", function(request, response) {
-	var user = request.user;
 	var id = request.params.jobId;
-	if (user.get('favorite_posts').length < 20) {
-		user.set('favorite_posts', user.get('favorite_posts').push(id));
-		user.save(null, {
-			success: function() {
+	if (request.user.get('favorite_posts').length < 20) {
+		var fav_array = request.user.get('favorite_posts');
+		fav_array.push(id);
+		request.user.set('favorite_posts', fav_array);
+		request.user.save(null, {
+			success: function(ok) {
 				response.success();
 			}, 
-			error: function() {
+			error: function(ok, error) {
 				response.error("There was an error getting the saved jobs. " + error.message);
 			}
 		});
@@ -75,17 +75,19 @@ Parse.Cloud.define("addSavedJob", function(request, response) {
 	}
 });
 
+// Deletes a job from a user's favorite_posts array
 Parse.Cloud.define("removeSavedJob", function(request, response) {
 	var user = request.user;
 	var id = request.params.jobId;
-	if (user.get('favorite_posts').indexOf(id) > 0) {
-		var newFavs = user.get('favorite_posts').splice(user.get('favorite_posts').indexOf(id), 1);
+	if (user.get('favorite_posts') && user.get('favorite_posts').indexOf(id) > 0) {
+		var newFavs = user.get('favorite_posts');
+		newFavs.splice(newFavs.indexOf(id), 1);
 		user.set('favorite_posts', newFavs);
 		user.save(null, {
-			success: function() {
+			success: function(ok) {
 				response.success();
 			}, 
-			error: function() {
+			error: function(ok, error) {
 				response.error("There was an error saving the new favorites list. " + error.message);
 			}
 		});
