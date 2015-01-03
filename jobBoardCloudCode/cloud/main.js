@@ -43,7 +43,7 @@ Parse.Cloud.beforeSave(Parse.User, function(request, response) {
 });
 
 Parse.Cloud.define("getSavedJobs", function(request, response) {
-	var user = request.object;
+	var user = request.user;
 	var favs = user.get('favorite_posts');
 	var query = new Parse.Query("JobPost");
 	query.containedIn("objectId", favs);
@@ -55,4 +55,22 @@ Parse.Cloud.define("getSavedJobs", function(request, response) {
 			response.error("There was an error getting the saved jobs. " + error.message);
 		}
 	});
+});
+
+Parse.Cloud.define("addSavedJob", function(request, response) {
+	var user = request.user;
+	var id = request.params.jobId;
+	if (user.get('favorite_posts').length < 21) {
+		user.set('favorite_posts', user.get('favorite_posts').push(id));
+		user.save(null, {
+			success: function() {
+				response.success();
+			}, 
+			error: function() {
+				response.error("Couldn't save the job.");
+			}
+		})
+	} else {
+		response.error("There was an error getting the saved jobs. " + error.message);
+	}
 });
