@@ -1,1 +1,0 @@
-BuJobBoard.ApplicationAdapter = DS.FixtureAdapter;
