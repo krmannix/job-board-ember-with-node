@@ -60,17 +60,36 @@ Parse.Cloud.define("getSavedJobs", function(request, response) {
 Parse.Cloud.define("addSavedJob", function(request, response) {
 	var user = request.user;
 	var id = request.params.jobId;
-	if (user.get('favorite_posts').length < 21) {
+	if (user.get('favorite_posts').length < 20) {
 		user.set('favorite_posts', user.get('favorite_posts').push(id));
 		user.save(null, {
 			success: function() {
 				response.success();
 			}, 
 			error: function() {
-				response.error("Couldn't save the job.");
+				response.error("There was an error getting the saved jobs. " + error.message);
 			}
-		})
+		});
 	} else {
-		response.error("There was an error getting the saved jobs. " + error.message);
+		response.error("Too many saved jobs!");
+	}
+});
+
+Parse.Cloud.define("removeSavedJob", function(request, response) {
+	var user = request.user;
+	var id = request.params.jobId;
+	if (user.get('favorite_posts').indexOf(id) > 0) {
+		var newFavs = user.get('favorite_posts').splice(user.get('favorite_posts').indexOf(id), 1);
+		user.set('favorite_posts', newFavs);
+		user.save(null, {
+			success: function() {
+				response.success();
+			}, 
+			error: function() {
+				response.error("There was an error saving the new favorites list. " + error.message);
+			}
+		});
+	} else {
+		response.error("Could not find job in favorites!");
 	}
 });
